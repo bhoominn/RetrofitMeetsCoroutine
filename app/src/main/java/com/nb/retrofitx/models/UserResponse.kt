@@ -1,3 +1,3 @@
 package com.nb.retrofitx.models
 
-data class UserResponse(val name: String = "")
+data class UserResponse(val name: String = "") : BaseResponse()
