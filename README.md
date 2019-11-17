@@ -1,6 +1,17 @@
-# SimpleNetworkCallWithKotlinExtensions
+# RetrofitMeetsCoroutine
 
-## GET Example
+## Retrofit with Coroutine
+```
+GlobalScopeExt(this) {
+    getUser(onApiSuccess = {
+        //Handle Response
+        showUser(it)
+    })
+}
+```
+
+## Retrofit without Coroutine
+### GET Example
 ```
 getResponse(getApis().getUser(), onApiSuccess = {
      //Handle Response
@@ -14,7 +25,7 @@ getResponse(getApis().getUser(), onApiSuccess = {
 
 ```
 
-## POST Example
+### POST Example
 ```
 val requestModel = RequestModel()
 requestModel.name = "Bhoomin"
