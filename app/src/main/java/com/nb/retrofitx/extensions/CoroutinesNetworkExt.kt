@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-suspend fun <T> callApi(call: Response<T>, onApiSuccess: (T) -> Unit, onApiError: (message: String) -> Unit = {}) {
+suspend fun <T> getResponse(call: Response<T>, onApiSuccess: (T) -> Unit, onApiError: (message: String) -> Unit = {}) {
     val response = withContext(Dispatchers.IO) { call }
     Log.d("api_url", "${response.raw().request().url()}")
     if (response.raw().request().body() != null) Log.d("api_request", "${response.raw().request().body()}")
@@ -16,8 +16,8 @@ suspend fun <T> callApi(call: Response<T>, onApiSuccess: (T) -> Unit, onApiError
         if ((response.body()!! as BaseResponse).status) onApiSuccess(response.body()!!)
         else onApiError((response.body()!! as BaseResponse).message); Log.d("api_response", Gson().toJson(response.body()))
     } else {
-        onApiError("Error"); Log.d("api_response", Gson().toJson(response.body()))
+        onApiError("Error"); Log.e("api_response", response.errorBody()?.toString()!!)
     } else {
-        onApiError("Error"); Log.e("api_error", response.errorBody()?.string()!!)
+        onApiError("Error"); Log.e("api_error", response.errorBody()?.toString()!!)
     }
 }
